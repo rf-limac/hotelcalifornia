@@ -1,11 +1,9 @@
-package br.com.hotelCalifornia.infraestruture.controller;
+package br.com.hotelCalifornia.infraestructure.controller;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import org.apache.catalina.startup.ClassLoaderFactory.Repository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,18 +11,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
+
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.hotelCalifornia.infraestruture.model.HotelCaliforniaModel;
-import br.com.hotelCalifornia.infraestruture.repository.HotelCaliforniaRepository;
-import br.com.hotelCalifornia.infraestruture.service.HotelCalioforniaService;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import br.com.hotelCalifornia.infraestructure.model.HotelCaliforniaModel;
+import br.com.hotelCalifornia.infraestructure.service.HotelCalioforniaService;
+
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
@@ -86,7 +82,14 @@ public ResponseEntity<Void> apagarHotel(@PathVariable UUID id) {
        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 }
 
-
+@GetMapping("/{cnpj}")
+    public ResponseEntity<Optional<HotelCaliforniaModel>> findCnpj(@PathVariable String cnpj) {
+        Optional<HotelCaliforniaModel> cnpjOp = hotelCalioforniaService.findCnpj(cnpj);
+        if (!cnpjOp.isPresent()) {
+            ResponseEntity.status(HttpStatus.NOT_FOUND).body("CNPJ Não localizado!");
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(hotelCalioforniaService.findCnpj(cnpj));
+    }
      
 
 

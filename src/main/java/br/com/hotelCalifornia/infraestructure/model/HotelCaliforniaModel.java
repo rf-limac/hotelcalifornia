@@ -1,8 +1,7 @@
-package br.com.hotelCalifornia.infraestruture.model;
+package br.com.hotelCalifornia.infraestructure.model;
 
 import java.util.UUID;
 
-import javax.annotation.Generated;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
